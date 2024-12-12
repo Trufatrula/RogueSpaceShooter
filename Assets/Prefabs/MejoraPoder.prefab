@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stat: poder
-  cantidad: 0.5
+  cantidad: 1
 --- !u!114 &3841261665589476071
 MonoBehaviour:
   m_ObjectHideFlags: 0

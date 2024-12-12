@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stat: cooldown
-  cantidad: -0.25
+  cantidad: -0.3
 --- !u!114 &3841261665589476071
 MonoBehaviour:
   m_ObjectHideFlags: 0

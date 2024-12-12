@@ -60,6 +60,7 @@ public class SlotController : MonoBehaviour
             if (MatchEnPatron(selectedIndexes, condition.ganacionPatron))
             {
                 condition.victoria.Invoke();
+                if (condition.victoriaNombre.Equals("Mejora")) { return; }
                 StartCoroutine(TerminarSlots());
                 return;
             }

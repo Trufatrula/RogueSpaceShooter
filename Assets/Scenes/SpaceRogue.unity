@@ -1796,9 +1796,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a46eacb6cead01a43869aa5a0ce3e6fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  contentPanel: {fileID: 190509342}
-  scrollSpeed: 100
-  isSpinning: 1
+  panelSlots: {fileID: 190509342}
+  velocidadSlots: 100
+  girando: 1
 --- !u!114 &213097392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4996,7 +4996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3b6bc80fce0fa7428d99e789dd05e23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragSpeed: 5
+  dragVelocidad: 0.5
   minY: -25
   maxY: -4
 --- !u!95 &640548059
@@ -5322,9 +5322,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a46eacb6cead01a43869aa5a0ce3e6fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  contentPanel: {fileID: 645639049}
-  scrollSpeed: 100
-  isSpinning: 1
+  panelSlots: {fileID: 645639049}
+  velocidadSlots: 100
+  girando: 1
 --- !u!114 &662454902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7034,7 +7034,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  wordEffects: []
 --- !u!114 &925223620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7236,9 +7235,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a46eacb6cead01a43869aa5a0ce3e6fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  contentPanel: {fileID: 803495712}
-  scrollSpeed: 100
-  isSpinning: 1
+  panelSlots: {fileID: 803495712}
+  velocidadSlots: 100
+  girando: 1
 --- !u!1 &970933550
 GameObject:
   m_ObjectHideFlags: 0
@@ -11627,7 +11626,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-  wordEffects: []
 --- !u!114 &1443577325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14206,7 +14204,6 @@ MonoBehaviour:
           m_StringArgument: Avanzar
           m_BoolArgument: 1
         m_CallState: 2
-  wordEffects: []
 --- !u!1 &1826261114
 GameObject:
   m_ObjectHideFlags: 0
@@ -14605,9 +14602,9 @@ MonoBehaviour:
   - {fileID: 966711720}
   - {fileID: 662454901}
   - {fileID: 213097391}
-  winConditions:
-  - name: 50 dinero
-    onWin:
+  condicionesVic:
+  - victoriaNombre: 50
+    victoria:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2083284777}
@@ -14622,9 +14619,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    winningPattern: 010000000300000005000000
-  - name: 100 dinero
-    onWin:
+    ganacionPatron: 010000000300000005000000
+  - victoriaNombre: 100
+    victoria:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2083284777}
@@ -14639,9 +14636,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    winningPattern: 020000000100000002000000
-  - name: 150 dinero
-    onWin:
+    ganacionPatron: 020000000100000002000000
+  - victoriaNombre: 150
+    victoria:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2083284777}
@@ -14656,26 +14653,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    winningPattern: 040000000500000004000000
-  - name: 25 dinero
-    onWin:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2083284777}
-          m_TargetAssemblyTypeName: GestionCurrencias, Assembly-CSharp
-          m_MethodName: GanarBola
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 25
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    winningPattern: 050000000400000003000000
-  - name: Mejora
-    onWin:
+    ganacionPatron: 040000000500000004000000
+  - victoriaNombre: Mejora
+    victoria:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1096169547}
@@ -14702,8 +14682,25 @@ MonoBehaviour:
             m_StringArgument: Bajar
             m_BoolArgument: 0
           m_CallState: 2
-    winningPattern: 030000000200000001000000
-  onLose:
+    ganacionPatron: 030000000200000001000000
+  - victoriaNombre: 25
+    victoria:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2083284777}
+          m_TargetAssemblyTypeName: GestionCurrencias, Assembly-CSharp
+          m_MethodName: GanarBola
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 25
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    ganacionPatron: 050000000400000003000000
+  derrota:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1432685622}
