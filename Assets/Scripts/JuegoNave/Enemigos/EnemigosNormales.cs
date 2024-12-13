@@ -6,6 +6,7 @@ public class EnemigosNormales : MonoBehaviour
 {
     [SerializeField] private List<GameObject> listEnemies;
     [SerializeField] private List<GameObject> listInstanciasEnemies;
+    [SerializeField] private bool bossFinal = false;
 
     private List<float> probabilidades;
     [SerializeField] private float number = 0.1f;
@@ -137,9 +138,15 @@ public class EnemigosNormales : MonoBehaviour
 
     private void DarRecompensa()
     {
-        mejoraManager.SetNivelActual(this);
-        mejoraManager.SelectRandomObjects(3);
-        mejoraManager.GetComponent<Animator>().SetTrigger("Bajar");
+        if (!bossFinal)
+        {
+            mejoraManager.SetNivelActual(this);
+            mejoraManager.SelectRandomObjects(3);
+            mejoraManager.GetComponent<Animator>().SetTrigger("Bajar");
+        } else
+        {
+            gmNave.VictoriaMagistral();
+        }
     }
 
     public void RegresarAlMapa()

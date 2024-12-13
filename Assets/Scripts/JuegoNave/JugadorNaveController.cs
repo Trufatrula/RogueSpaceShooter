@@ -27,10 +27,12 @@ public class JugadorNaveController : MonoBehaviour
                 gameObject.AddComponent<MovementLibre>().SetVelocidad(movimiento.velocidad);
                 break;
             case 1:
+                Debug.Log(movimiento.velocidad);
+                gameObject.AddComponent<MovementClicker>().SetVelocidad(movimiento.velocidad);
                 break;
             case 2:
-                break;
-            case 3:
+                Debug.Log(movimiento.velocidad);
+                gameObject.AddComponent<MovementInvertido>().SetVelocidad(movimiento.velocidad);
                 break;
             default:
                 break;

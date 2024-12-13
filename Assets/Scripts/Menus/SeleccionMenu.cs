@@ -31,11 +31,11 @@ public class SeleccionMenu : MonoBehaviour
         if (isActive)
         {
             isDeployed = true;
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
             {
                 MoveSelection(-1);
             }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
             {
                 MoveSelection(1);
             }
@@ -81,7 +81,7 @@ public class SeleccionMenu : MonoBehaviour
         isConfirmed = true;
         images[selectedIndex].SetAsLastSibling();
         isDeployed = false;
-        Debug.Log("Confirmed selection on " + gameObject.name + " - Item: " + selectedIndex);
+        Debug.Log("Zona " + gameObject.name + " Seleccionado" + selectedIndex);
     }
 
     public void Deselect()

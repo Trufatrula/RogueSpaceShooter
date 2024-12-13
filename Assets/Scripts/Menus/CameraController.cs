@@ -5,7 +5,6 @@ public class CameraController : MonoBehaviour
 {
     public float moveSpeed = 5f;
     private CameraPoint puntoActual;
-    private bool bloqueo = false;
 
     void Start()
     {
@@ -19,28 +18,6 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        if(bloqueo) return;
-
-        if (Input.GetKeyDown(KeyCode.W) && puntoActual.GetPuntoAdjacente("up") != null)
-        {
-            CallEventos("up");
-            MoveToPoint(puntoActual.GetPuntoAdjacente("up"));
-        }
-        else if (Input.GetKeyDown(KeyCode.S) && puntoActual.GetPuntoAdjacente("down") != null)
-        {
-            CallEventos("down");
-            MoveToPoint(puntoActual.GetPuntoAdjacente("down"));
-        }
-        else if (Input.GetKeyDown(KeyCode.A) && puntoActual.GetPuntoAdjacente("left") != null)
-        {
-            CallEventos("left");
-            MoveToPoint(puntoActual.GetPuntoAdjacente("left"));
-        }
-        else if (Input.GetKeyDown(KeyCode.D) && puntoActual.GetPuntoAdjacente("right") != null)
-        {
-            CallEventos("right");
-            MoveToPoint(puntoActual.GetPuntoAdjacente("right"));
-        }
         if (transform.position != puntoActual.transform.position)
         {
             transform.position = Vector3.MoveTowards(transform.position, puntoActual.transform.position, moveSpeed * Time.deltaTime);
@@ -93,11 +70,6 @@ public class CameraController : MonoBehaviour
     {
         puntoActual.SalirDelPunto();
         punto.EntrarAlPunto();
-    }
-
-    public void SetCameraBlock(bool blocked)
-    {
-        bloqueo = blocked;
     }
 
     public CameraPoint GetCurrentCameraPoint()

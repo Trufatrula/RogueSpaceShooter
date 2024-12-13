@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GestionCurrencias : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI textoBolas;
     private int cantidadBolas;
 
-    [SerializeField] private TextMeshProUGUI textoTickets;
-    private int cantidadTickets;
+    [SerializeField] Button botonSalirTienda;
 
     public void ConseguirBola()
     {
@@ -35,12 +35,14 @@ public class GestionCurrencias : MonoBehaviour
 
     private IEnumerator ReducirGradualmente(TextoNumero deposito)
     {
-        while (cantidadBolas > 0)
+        botonSalirTienda.interactable = false;
+        while (cantidadBolas > 0 && deposito.texto > 0)
         {
             deposito.Reducir();
             PerderBola();
-            yield return new WaitForSeconds(0.01f); 
+            yield return new WaitForSeconds(0.001f); 
         }
+        botonSalirTienda.interactable = true;
     }
 
     private IEnumerator AumentarGradualmente(int deposito)
@@ -51,6 +53,11 @@ public class GestionCurrencias : MonoBehaviour
             ConseguirBola();
             yield return new WaitForSeconds(0.01f);
         }
+    }
+
+    public int GetCantidadBolas()
+    {
+        return cantidadBolas;
     }
 
 }

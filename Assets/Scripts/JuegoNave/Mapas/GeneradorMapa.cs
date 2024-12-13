@@ -14,6 +14,8 @@ public class GeneradorMapa : MonoBehaviour
     public GameObject mapa;
     public int alturaActual = 0;
 
+    private GameManagerNave gmNave;
+
     [SerializeField] private Sprite spriteEnemigo;
     [SerializeField] private Sprite spriteTesoro;
     [SerializeField] private Sprite spriteTienda;
@@ -22,11 +24,12 @@ public class GeneradorMapa : MonoBehaviour
 
     [SerializeField] GameObject oleadasEnemigas;
     [SerializeField] GameObject oleadasEnemigas2;
+    [SerializeField] GameObject oleadasEnemigasElite;
+    [SerializeField] GameObject oleadasEnemigasBossFinal;
     [SerializeField] UnityEvent eventoEnemigo;
     [SerializeField] GameObject tesoro;
-    [SerializeField] UnityEvent eventoTesoro;
     [SerializeField] GameObject slots;
-    [SerializeField] UnityEvent eventoSlots;
+    [SerializeField] GameObject tienda;
 
     public Dictionary<Node.NodeType, Sprite> tipoSprite = new Dictionary<Node.NodeType, Sprite>();
 
@@ -41,6 +44,7 @@ public class GeneradorMapa : MonoBehaviour
 
     void Start()
     {
+        gmNave = FindAnyObjectByType<GameManagerNave>();
         GenerarGrid();
         GenerarCaminos();
         QuitarNodosDesconectados();
@@ -151,6 +155,10 @@ public class GeneradorMapa : MonoBehaviour
                     {
                         node.SetType(Node.NodeType.Enemigo);
                     }
+                    else if (y == 14)
+                    {
+                        node.SetType(Node.NodeType.Boss);
+                    }
                     else if (y < 6)
                     {
                         Node.NodeType nodeType = GetTipoDeNodo(excludeShopAndBoss: true);
@@ -206,15 +214,25 @@ public class GeneradorMapa : MonoBehaviour
 
         Node.NodeType typeNode = selectedNode.GetNodeType();
         alturaActual++;
-        switch(typeNode)
+        GameObject oleadas = null;
+        switch (typeNode)
         {
             case Node.NodeType.Tienda:
-
+                tienda.SetActive(true);
+                eventoEnemigo.Invoke();
                 break;
             case Node.NodeType.Boss:
+                if(alturaActual == 15)
+                {
+                    oleadas = Instantiate(oleadasEnemigasBossFinal, new Vector3(-37.5f, 0, 0), Quaternion.identity);
+                } else
+                {
+                    oleadas = Instantiate(oleadasEnemigasElite, new Vector3(-37.5f, 0, 0), Quaternion.identity);
+                }
+                oleadas.GetComponent<EnemigosNormales>().ComenzarOleadas(alturaActual * gmNave.GetModDificultad());
+                eventoEnemigo.Invoke();
                 break;
             case Node.NodeType.Enemigo:
-                GameObject oleadas = null;
                 if (alturaActual%3 == 0)
                 {
                     oleadas = Instantiate(oleadasEnemigas2, new Vector3(-37.5f, 0, 0), Quaternion.identity);
@@ -222,16 +240,16 @@ public class GeneradorMapa : MonoBehaviour
                 {
                     oleadas = Instantiate(oleadasEnemigas, new Vector3(-37.5f, 0, 0), Quaternion.identity);
                 }
-                oleadas.GetComponent<EnemigosNormales>().ComenzarOleadas(alturaActual);
+                oleadas.GetComponent<EnemigosNormales>().ComenzarOleadas(alturaActual * gmNave.GetModDificultad());
                 eventoEnemigo.Invoke();
                 break;
             case Node.NodeType.Desafio:
                 slots.SetActive(true);
-                eventoSlots.Invoke();
+                eventoEnemigo.Invoke();
                 break;
             case Node.NodeType.Tesoro:
                 tesoro.SetActive(true);
-                eventoTesoro.Invoke();
+                eventoEnemigo.Invoke();
                 break;
             default:
                 break;

@@ -10,6 +10,7 @@ public class TextoNumero : MonoBehaviour
 
     public void Start()
     {
+        Debug.Log("VIVI");
         textoTexto = GetComponent<TextMeshProUGUI>();
         textoTexto.text = texto.ToString();
     }

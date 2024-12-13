@@ -6,6 +6,7 @@ public class MenuPausa : MonoBehaviour
 {
     [SerializeField] GameObject menuPausa;
     [SerializeField] GameObject menuDerrota;
+    [SerializeField] GameObject menuVictoria;
 
     private bool pausable = false;
 
@@ -38,6 +39,14 @@ public class MenuPausa : MonoBehaviour
     {
         menuPausa.SetActive(false);
         menuDerrota.SetActive(true);
+        pausable = false;
+        Time.timeScale = 0f;
+    }
+
+    public void Victoria()
+    {
+        menuPausa.SetActive(false);
+        menuVictoria.SetActive(true);
         pausable = false;
         Time.timeScale = 0f;
     }

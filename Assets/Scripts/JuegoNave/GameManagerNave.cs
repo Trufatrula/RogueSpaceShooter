@@ -10,6 +10,7 @@ public class GameManagerNave : MonoBehaviour
     private JugadorNaveController playerController;
     private JugadorNave playerData;
     public SeleccionManager seleccionPartida;
+    private float modDificultad;
 
     [SerializeField] private MenuPausa pausa;
     [SerializeField] private Vida vida;
@@ -48,6 +49,7 @@ public class GameManagerNave : MonoBehaviour
     public void CreateGame()
     {
         List<int> seleccionFinal = seleccionPartida.GetSeleccionFinal();
+        string naveNombre = null;
         DisparoNave disparo = null;
         MovimientoNave movimiento = null;
 
@@ -57,7 +59,14 @@ public class GameManagerNave : MonoBehaviour
                 disparo = new DisparoPreciso(1, 1.5f, "precisa", false, false, false);
                 break;
             case 1:
-                disparo = new DisparoCargado();
+                disparo = new DisparoPreciso(2, 2f, "precisa2", false, false, false);
+                //disparo = new DisparoCargado();
+                break;
+            case 2:
+                disparo = new DisparoPreciso(0.5f, 1, "precisa3", false, false, false);
+                break;
+            case 3:
+                disparo = new DisparoPreciso(1, 1.5f, "precisa4", false, false, false);
                 break;
         }
 
@@ -65,13 +74,39 @@ public class GameManagerNave : MonoBehaviour
         {
             case 0:
                 movimiento = new MovimientoNave(0, 5);
+                naveNombre = "Player";
                 break;
             case 1:
-                //disparo = new DisparoCargado();
+                movimiento = new MovimientoNave(1, 5.5f);
+                naveNombre = "Player2";
+                break;
+            case 2:
+                movimiento = new MovimientoNave(2, 5);
+                naveNombre = "Player3";
+                break;
+            case 3:
+                movimiento = new MovimientoNave(0, 3);
+                naveNombre = "Player4";
+            break;
+        }
+
+        switch (seleccionFinal[2])
+        {
+            case 0:
+                modDificultad = 1;
+                CurarVida(5);
+                break;
+            case 1:
+                modDificultad = 1.25f;
+                CurarVida(3);
+                break;
+            case 2:
+                modDificultad = 1.75f;
+                CurarVida(1);
                 break;
         }
 
-        playerData = new JugadorNave("Nave", 100, disparo, movimiento);
+        playerData = new JugadorNave(naveNombre, 100, disparo, movimiento);
         //GameObject playerPrefab = Resources.Load<GameObject>("Player");
         //GameObject playerInstance = Instantiate(playerPrefab);
         //playerController = playerInstance.GetComponent<JugadorNaveController>();
@@ -79,14 +114,14 @@ public class GameManagerNave : MonoBehaviour
         //Debug.Log(playerController.GetCurrentGunData().GetDescription());
         //Debug.Log(playerData.ToString());
 
-        CurarVida(5);
+
         SaveGame();
     }
 
     public void InstantiatePlayer(Vector3 pos)
     {
 
-        GameObject playerPrefab = Resources.Load<GameObject>("Player");
+        GameObject playerPrefab = Resources.Load<GameObject>(playerData.name);
         GameObject playerInstance = Instantiate(playerPrefab, pos, Quaternion.identity);
 
         playerController = playerInstance.GetComponent<JugadorNaveController>();
@@ -127,6 +162,8 @@ public class GameManagerNave : MonoBehaviour
             default:
                 break;
         }
+        Debug.Log("MejoraTerminada");
+        playerData.SetDisparoNave(playerData.disparo);
     }
 
     public void MoverCamara(string punto)
@@ -155,7 +192,6 @@ public class GameManagerNave : MonoBehaviour
 
     public void PlayerControllerDestroy()
     {
-        playerData.SetDisparoNave(playerData.disparo);
         Destroy(playerController.gameObject);
         playerController = null;
     }
@@ -174,11 +210,20 @@ public class GameManagerNave : MonoBehaviour
     {
         pausa.Derrota();
     }
+    public void VictoriaMagistral()
+    {
+        pausa.Victoria();
+    }
 
     public void ReiniciarPartida()
     {
         Time.timeScale = 1f;
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
+    }
+
+    public float GetModDificultad()
+    {
+        return modDificultad;
     }
 }
