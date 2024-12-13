@@ -115,7 +115,8 @@ MonoBehaviour:
   - {fileID: 4248696685077910278, guid: e43ca6079f472a3479e3691883f6f352, type: 3}
   - {fileID: 4248696685077910278, guid: d0ece36587d3eb04487ec588f696c921, type: 3}
   listInstanciasEnemies: []
-  number: 0
+  bossFinal: 0
+  dificultadOleadas: 0
   duracion: 9
   intervaloEnemigoMin: 3
   intervaloEnemigoMax: 3

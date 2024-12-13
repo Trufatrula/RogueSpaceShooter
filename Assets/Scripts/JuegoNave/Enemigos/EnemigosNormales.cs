@@ -9,7 +9,7 @@ public class EnemigosNormales : MonoBehaviour
     [SerializeField] private bool bossFinal = false;
 
     private List<float> probabilidades;
-    [SerializeField] private float number = 0.1f;
+    [SerializeField] private float dificultadOleadas = 0.1f;
     [SerializeField] private float duracion = 10f;
     [SerializeField] private float intervaloEnemigoMin = 4f;
     [SerializeField] private float intervaloEnemigoMax = 7f;
@@ -35,7 +35,7 @@ public class EnemigosNormales : MonoBehaviour
 
     public void ComenzarOleadas(float dificultad)
     {
-        number = 0.1f * dificultad;
+        dificultadOleadas = 0.1f * dificultad;
         duracion = duracion + (2.5f * dificultad);
         intervaloEnemigoMin = intervaloEnemigoMin - (0.25f * dificultad);
         if(intervaloEnemigoMin < 0.5f) { intervaloEnemigoMin = 0.5f; }
@@ -52,13 +52,13 @@ public class EnemigosNormales : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             float weight;
-            if (number >= 1f)
+            if (dificultadOleadas >= 1f)
             {
-                weight = Mathf.Pow(i + 1, number);
+                weight = Mathf.Pow(i + 1, dificultadOleadas);
             }
             else
             {
-                weight = Mathf.Pow(count - i, 1 / number);
+                weight = Mathf.Pow(count - i, 1 / dificultadOleadas);
             }
 
             probabilidades.Add(weight);
